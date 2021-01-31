@@ -1,7 +1,8 @@
 # lt-finder
+ConnpassのAPIをつかってLT情報をさがす。
 
 ```bash
-$ docker-compose up
+$ docker-compose run --rm app yarn run build
 ```
 
-and open http://localhost:3000
+and open `./out/index.html`
