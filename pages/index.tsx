@@ -41,14 +41,16 @@ export default function Home(props) {
       </header>
 
       <main>
-        <ul>
-          <li>LT枠のありそうなイベントを探しています。</li>
-          <li><a href="https://connpass.com/about/api/" target="blank">connpass API</a>を使っています。</li>
-          <li>ときどき更新されます。</li>
-          <li>最終更新: {props.updatedAt}</li>
-          <li>リポジトリ: <a href="https://github.com/s2terminal/lt-finder" target="blank">https://github.com/s2terminal/lt-finder</a></li>
-        </ul>
-        {props.events.events.map(event => <Event event={event} />)}
+        <div>
+          <ul>
+            <li>LT枠のありそうなイベントを探しています。</li>
+            <li><a href="https://connpass.com/about/api/" target="blank">connpass API</a>を使っています。</li>
+            <li>ときどき更新されます。</li>
+            <li>最終更新: {props.updatedAt}</li>
+            <li>リポジトリ: <a href="https://github.com/s2terminal/lt-finder" target="blank">https://github.com/s2terminal/lt-finder</a></li>
+          </ul>
+          {props.events.events.map(event => <Event event={event} />)}
+        </div>
       </main>
     </div>
   )
