@@ -33,7 +33,7 @@ export default function Home(props) {
   return (
     <div>
       <Head>
-        <title>title</title>
+        <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header>
