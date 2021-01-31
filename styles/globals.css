@@ -9,3 +9,27 @@ body {
 * {
   box-sizing: border-box;
 }
+
+header, main {
+  margin: 0;
+  padding: 1rem;
+}
+header > *,
+main   > * {
+  display: block;
+  max-width: 640px;
+  margin: 0 auto;
+}
+header, footer {
+  background: #933;
+  color: #fff;
+}
+ul {
+  margin: 0.5em 1.2em;
+  padding: 0;
+}
+
+h3 {
+  padding-top: 1em;
+  border-top: 1px solid #ccc;
+}

@@ -1,9 +1,16 @@
 import React from 'react';
 import Head from 'next/head';
 import { getEvents } from '../lib/connpass';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
+import utc from 'dayjs/plugin/utc'; // dependent on utc plugin
+import timezone from 'dayjs/plugin/timezone';
+dayjs.locale('ja');
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export async function getStaticProps(_context) {
-  const updatedAt = new Date();
+  const updatedAt = dayjs().tz('Asia/Tokyo').format('YYYY年MM月DD日(ddd)HH時mm分ss秒ごろ');
   const events = await getEvents()
   return {
     props: { events, updatedAt: updatedAt.toString() }
@@ -11,11 +18,12 @@ export async function getStaticProps(_context) {
 }
 
 const Event = ({ event }) => {
-  const date = new Date(event.started_at);
+  const date = dayjs(event.started_at);
   return <div>
-    <h3>{event.title}</h3>
-    <a href={event.event_url} target="blank">{event.event_url}</a>
-    <div>{date.getFullYear()}年{date.getMonth() + 1}月{date.getDate()}日</div>
+    <h3>
+      <a href={event.event_url} target="blank">{event.title}</a>
+    </h3>
+    <div>{date.format('YYYY年MM月DD日(ddd)')}</div>
     <div>聴講者含む参加者数: {event.accepted}/{event.limit ? event.limit : "-"}人</div>
   </div>
 }
@@ -28,27 +36,20 @@ export default function Home(props) {
         <title>title</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <header>
+        <h1>{title}</h1>
+      </header>
 
       <main>
-        <h1>{title}</h1>
-        <p>
-          <a href="https://connpass.com/about/api/" target="blank">connpass API</a>を使って、LT枠のありそうなイベントを探しています。
-          ときどき更新しています。怒られたら止まります。
-        </p>
-        <p>最終更新: {props.updatedAt}</p>
+        <ul>
+          <li>LT枠のありそうなイベントを探しています。</li>
+          <li><a href="https://connpass.com/about/api/" target="blank">connpass API</a>を使っています。</li>
+          <li>ときどき更新されます。</li>
+          <li>最終更新: {props.updatedAt}</li>
+          <li>リポジトリ: <a href="https://github.com/s2terminal/lt-finder" target="blank">https://github.com/s2terminal/lt-finder</a></li>
+        </ul>
         {props.events.events.map(event => <Event event={event} />)}
       </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img height="16" src="/vercel.svg" alt="Vercel Logo" />
-        </a>
-      </footer>
     </div>
   )
 }
