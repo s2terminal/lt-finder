@@ -21,7 +21,7 @@ const Event = ({ event }) => {
 }
 
 export default function Home(props) {
-  const title = `LT Finder`;
+  const title = `わくわくLT枠`;
   return (
     <div>
       <Head>

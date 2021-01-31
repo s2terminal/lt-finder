@@ -1,6 +1,8 @@
 export const getEvents = async () => {
+  const now = new Date();
   const allEvents = await fetchEvents();
   const events = allEvents["events"]
+    .filter(a => (new Date(a.ended_at).getTime() >= now.getTime())) // 開催日を過ぎていない
     .filter(a => a.limit == null || a.limit - a.accepted > 0) // 参加可能
     .sort((a,b) => b.accepted - a.accepted) // 参加者が多い順
   return { events };
@@ -20,11 +22,11 @@ const fetchEvents = async () => {
     // テスト用のデータ
     return {"events": [
       { "title": "てすと用の勉強会１", "event_url": "https://example.com",
-      "started_at": "2021-01-31T16:00:00+09:00", "limit": null, "accepted": 1, "waiting": 0 },
+      "started_at": "2021-01-31T16:00:00+09:00", "ended_at": "2099-01-31T16:00:00+09:00", "limit": null, "accepted": 1, "waiting": 0 },
       { "title": "てすと用の勉強会２", "event_url": "https://example.com",
-      "started_at": "2021-01-31T16:00:00+09:00", "limit": 100, "accepted": 300, "waiting": 0 },
+      "started_at": "2021-01-31T16:00:00+09:00", "ended_at": "2099-01-31T16:00:00+09:00", "limit": 100, "accepted": 300, "waiting": 0 },
       { "title": "てすと用の勉強会３", "event_url": "https://example.com",
-      "started_at": "2021-01-31T16:00:00+09:00", "limit": 10000, "accepted": 20, "waiting": 0 },
+      "started_at": "2021-01-31T16:00:00+09:00", "ended_at": "2099-01-31T16:00:00+09:00", "limit": 10000, "accepted": 20, "waiting": 0 },
     ]}
   }
 }
