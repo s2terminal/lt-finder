@@ -1,0 +1,29 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    # 毎日午前9時(UTC0時)に実行
+    - cron: '0 0 * * *'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn install
+      - run: yarn build
+        env:
+          GITHUB_PAGES: true
+      - run: |
+          yarn run next export
+          touch out/.nojekyll
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
