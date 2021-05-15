@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-    "start": "next start"
+    "start": "next start",
+    "test:tsc": "tsc --noEmit"
   },
   "dependencies": {
     "dayjs": "^1.10.4",
