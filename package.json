@@ -9,7 +9,7 @@
     "test:tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "dayjs": "^1.10.4",
+    "dayjs": "^1.11.7",
     "next": "12.1.5",
     "react": "18.2.0",
     "react-dom": "18.2.0"
